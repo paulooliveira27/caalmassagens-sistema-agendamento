@@ -24,7 +24,6 @@ O Caal Massagens foi desenvolvido com o objetivo de digitalizar parte do process
 - Google Calendar API
 - OAuth 2.0
 - Netlify
-
 ## Integrações
 
 **Supabase:** utilizado na estrutura de autenticação e no gerenciamento dos dados necessários à integração.
