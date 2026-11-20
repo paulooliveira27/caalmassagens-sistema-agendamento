@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caal Massagens · Massoterapia</title>
+<meta name="description" content="Massoterapia com agenda online, serviços personalizados e atendimento em Curitiba.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --creme:#FAF7F2;
+    --creme-2:#F3EEE6;
+    --papel:#FFFFFF;
+    --tinta:#1F1D1A;
+    --tinta-suave:#3A3631;
+    --suave:#6B655D;
+    --linha:#E8E0D4;
+    --linha-2:#EDE7DD;
+    --sage:#566B54;
+    --sage-deep:#40523F;
+    --sage-claro:#EBEFE8;
+    --terra:#B8785A;
+    --terra-claro:#F5E6DE;
+    --ouro:#B39A5F;
+    --alerta:#A24E30;
+    --alerta-bg:#FBEEE7;
+    --aviso-bg:#FAF1DE;
+    --aviso:#8B6520;
+    --raio:14px;
+    --sombra-s:0 1px 2px rgba(31,29,26,.04), 0 2px 8px -4px rgba(31,29,26,.08);
+    --sombra:0 1px 2px rgba(31,29,26,.04), 0 20px 40px -24px rgba(31,29,26,.18);
+    --sombra-g:0 1px 2px rgba(31,29,26,.04), 0 32px 64px -32px rgba(31,29,26,.28);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; scroll-padding-top:96px}
+  body{
+    margin:0; background:var(--creme); color:var(--tinta);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased;
+    font-feature-settings:"ss01","cv11";
+  }
+  h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif; line-height:1.12; margin:0;
+    font-weight:500; letter-spacing:-.015em; color:var(--tinta)}
+  h1{font-size:clamp(2.6rem, 5.4vw, 4.4rem); font-weight:500}
+  h2{font-size:clamp(2rem, 4vw, 3.1rem)}
+  h3{font-size:1.35rem; letter-spacing:-.01em}
+  p{margin:0}
+  a{color:inherit; text-decoration:none}
+  .wrap{width:min(1180px, 100% - 48px); margin-inline:auto}
+  .wrap-n{width:min(980px, 100% - 48px); margin-inline:auto}
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:.72rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--terra); margin-bottom:18px;
+  }
+  .eyebrow::before{content:""; width:24px; height:1px; background:var(--terra); opacity:.5}
+  .eyebrow.center::after{content:""; width:24px; height:1px; background:var(--terra); opacity:.5}
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:9px;
+    padding:14px 26px; border-radius:8px; border:1px solid transparent;
+    font-family:'Inter',sans-serif; font-size:.9rem; font-weight:600; letter-spacing:.01em;
+    cursor:pointer; transition:all .18s ease; white-space:nowrap;
+  }
+  .btn svg{width:15px; height:15px}
+  .btn-primario{background:var(--tinta); color:#fff}
+  .btn-primario:hover{background:var(--sage-deep); transform:translateY(-1px); box-shadow:0 12px 24px -14px rgba(31,29,26,.6)}
+  .btn-secundario{background:transparent; color:var(--tinta); border-color:var(--linha)}
+  .btn-secundario:hover{background:var(--papel); border-color:var(--tinta-suave)}
+  .btn-sage{background:var(--sage); color:#fff}
+  .btn-sage:hover{background:var(--sage-deep)}
+
+  /* ---------- ANNOUNCEMENT ---------- */
+  .anuncio{
+    background:var(--tinta); color:#EDE7DD; font-size:.78rem;
+    text-align:center; padding:9px 16px; letter-spacing:.02em;
+  }
+  .anuncio strong{color:#fff; font-weight:600}
+  .anuncio span{opacity:.65; margin:0 8px}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,247,242,.9); backdrop-filter:blur(16px) saturate(1.2);
+    border-bottom:1px solid var(--linha);
+  }
+  .nav-in{display:flex; align-items:center; justify-content:space-between; gap:24px; height:76px}
+  .marca{display:flex; align-items:center; gap:11px}
+  .marca-selo{
+    width:38px; height:38px; border-radius:50%;
+    display:grid; place-items:center; border:1px solid var(--sage);
+    color:var(--sage); background:var(--papel);
+  }
+  .marca-selo svg{width:20px; height:20px}
+  .marca-txt{display:flex; flex-direction:column; line-height:1}
+  .marca-txt strong{font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:600; letter-spacing:.01em}
+  .marca-txt small{font-size:.62rem; letter-spacing:.24em; text-transform:uppercase; color:var(--suave); margin-top:5px}
+  .nav-links{display:flex; gap:32px; font-size:.85rem; font-weight:500}
+  .nav-links a{color:var(--suave); position:relative; padding:4px 0; transition:color .15s}
+  .nav-links a:hover{color:var(--tinta)}
+  .nav-links a::after{content:""; position:absolute; left:0; right:0; bottom:-2px; height:1px; background:var(--tinta); transform:scaleX(0); transition:transform .2s ease; transform-origin:center}
+  .nav-links a:hover::after{transform:scaleX(1)}
+  .nav-cta{display:flex; align-items:center; gap:14px}
+  .nav-cta .btn{padding:11px 20px; font-size:.82rem}
+  .nav-cta .btn-secundario{padding:11px 16px}
+  @media (max-width:900px){ .nav-links{display:none} }
+
+  /* ---------- HERO ---------- */
+  .hero{padding:100px 0 80px; position:relative; overflow:hidden}
+  .hero::before{
+    content:""; position:absolute; inset:-40% -10% auto -20%; height:800px; z-index:0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(184,120,90,.10), transparent 55%),
+      radial-gradient(circle at 75% 20%, rgba(86,107,84,.08), transparent 55%);
+    pointer-events:none;
+  }
+  .hero-in{position:relative; display:grid; grid-template-columns:1.1fr .9fr; gap:80px; align-items:center}
+  .hero h1{margin-bottom:28px}
+  .hero h1 em{font-style:italic; color:var(--sage); font-weight:400}
+  .hero .lead{font-size:1.06rem; color:var(--suave); max-width:48ch; margin-bottom:38px; line-height:1.7}
+  .hero-acoes{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:44px}
+  .hero-metas{display:flex; gap:32px; padding-top:32px; border-top:1px solid var(--linha)}
+  .meta .num{font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:600; line-height:1; display:block; margin-bottom:6px}
+  .meta .lbl{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--suave)}
+
+  .hero-img{
+    aspect-ratio:4/5; border-radius:20px; position:relative;
+    background:
+      linear-gradient(160deg, rgba(86,107,84,.92), rgba(64,82,63,.98)),
+      radial-gradient(circle at 70% 20%, rgba(179,154,95,.4), transparent 60%);
+    overflow:hidden;
+    box-shadow:var(--sombra-g);
+  }
+  .hero-img::before{
+    content:""; position:absolute; inset:22px;
+    border:1px solid rgba(255,255,255,.22); border-radius:12px;
+  }
+  .hero-img-in{
+    position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end;
+    padding:42px; color:#fff;
+  }
+  .hero-img-in .tag{
+    display:inline-block; align-self:flex-start; padding:6px 14px; border-radius:999px;
+    background:rgba(255,255,255,.15); backdrop-filter:blur(8px);
+    font-size:.7rem; letter-spacing:.15em; text-transform:uppercase; margin-bottom:20px;
+    border:1px solid rgba(255,255,255,.2);
+  }
+  .hero-img-in h3{color:#fff; font-size:1.9rem; line-height:1.15; margin-bottom:14px; font-weight:500}
+  .hero-img-in p{color:rgba(255,255,255,.8); font-size:.9rem; line-height:1.6; max-width:32ch}
+  .hero-img-in .assinatura{
+    margin-top:24px; padding-top:20px; border-top:1px solid rgba(255,255,255,.18);
+    display:flex; align-items:center; gap:12px;
+    font-size:.78rem; color:rgba(255,255,255,.75); letter-spacing:.05em;
+  }
+  .assinatura-dot{width:6px; height:6px; border-radius:50%; background:var(--ouro)}
+
+  @media (max-width:960px){
+    .hero-in{grid-template-columns:1fr; gap:48px}
+    .hero{padding:64px 0 56px}
+    .hero-img{aspect-ratio:16/12; max-width:520px}
+    .hero-img-in{padding:30px}
+    .hero-img-in h3{font-size:1.5rem}
+    .hero-metas{gap:24px; padding-top:24px}
+    .meta .num{font-size:1.5rem}
+  }
+
+  /* ---------- TRUST BAR ---------- */
+  .trust{
+    border-block:1px solid var(--linha); padding:22px 0; background:var(--papel);
+  }
+  .trust-in{display:flex; flex-wrap:wrap; gap:40px; justify-content:space-between; align-items:center}
+  .trust-item{display:flex; align-items:center; gap:12px; color:var(--suave); font-size:.85rem}
+  .trust-item svg{width:18px; height:18px; color:var(--sage); flex-shrink:0}
+  .trust-item strong{color:var(--tinta); font-weight:600}
+  @media (max-width:760px){ .trust-in{gap:18px} .trust-item{font-size:.8rem} }
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:96px 0}
+  .sec-head{max-width:64ch; margin-bottom:52px}
+  .sec-head.center{text-align:center; margin-inline:auto}
+  .sec-head h2{margin-bottom:18px}
+  .sec-head p{color:var(--suave); font-size:1.02rem; line-height:1.7}
+  @media (max-width:760px){ section{padding:64px 0} .sec-head{margin-bottom:36px} }
+
+  /* ---------- SERVIÇOS ---------- */
+  .servicos-topo{
+    display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:flex-end;
+    margin-bottom:32px; padding-bottom:24px; border-bottom:1px solid var(--linha);
+  }
+  .servicos-topo h3{font-size:1.3rem}
+  .servicos-topo small{color:var(--suave); font-size:.82rem; display:block; margin-top:6px}
+
+  .tabela-wrap{
+    background:var(--papel); border:1px solid var(--linha); border-radius:var(--raio);
+    box-shadow:var(--sombra); overflow:hidden;
+  }
+  table{width:100%; border-collapse:collapse; font-size:.9rem}
+  thead th{
+    text-align:left; padding:16px 18px; font-size:.68rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--suave); font-weight:600;
+    background:var(--creme-2); border-bottom:1px solid var(--linha); white-space:nowrap;
+  }
+  thead th.num, tbody td.num{text-align:center}
+  tbody td{padding:18px; border-bottom:1px solid var(--linha-2); vertical-align:middle}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr{transition:background .15s}
+  tbody tr:hover{background:var(--creme)}
+  .nome-serv{font-weight:600; display:block; line-height:1.35; color:var(--tinta)}
+  .nome-serv small{display:block; font-weight:400; color:var(--suave); font-size:.78rem; margin-top:3px; line-height:1.4}
+
+  .pill{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px; border-radius:50%; font-size:.7rem;
+  }
+  .pill.sim{background:var(--sage-claro); color:var(--sage); border:1px solid #D9E2D7}
+  .pill.nao{background:#F2EDE5; color:#B4AA9C; border:1px solid #E8E1D5}
+  .pill.sim::before{content:"✓"; font-weight:700}
+  .pill.nao::before{content:"—"}
+
+  .preco{
+    min-width:110px; text-align:right; font-weight:600; outline:none;
+    border-bottom:1px dashed transparent; cursor:text; border-radius:3px;
+    padding:2px 4px; transition:all .15s;
+  }
+  .preco:empty::before{content:"R$ —"; color:#C4BBAA; font-weight:400; letter-spacing:.04em}
+
+  @media (max-width:880px){
+    .tabela-wrap{background:transparent; border:0; box-shadow:none; border-radius:0}
+    table, tbody, tr, td{display:block; width:100%}
+    thead{display:none}
+    tbody tr{
+      background:var(--papel); border:1px solid var(--linha); border-radius:var(--raio);
+      padding:18px 20px; margin-bottom:12px; box-shadow:var(--sombra-s);
+    }
+    tbody tr:hover{background:var(--papel)}
+    tbody td{
+      display:flex; justify-content:space-between; align-items:center; gap:14px;
+      padding:8px 0; border:0; text-align:left;
+    }
+    tbody td::before{
+      content:attr(data-label); font-size:.7rem; font-weight:600; letter-spacing:.08em;
+      text-transform:uppercase; color:var(--suave); flex-shrink:0;
+    }
+    tbody td:first-child{padding-bottom:12px; margin-bottom:6px; border-bottom:1px solid var(--linha-2)}
+    tbody td:first-child::before{display:none}
+  }
+
+  .nota{
+    display:flex; gap:14px; align-items:flex-start;
+    background:var(--aviso-bg); border:1px solid #EBDFC0; color:#6B4B0F;
+    border-radius:var(--raio); padding:18px 22px; font-size:.86rem; margin-top:24px;
+    line-height:1.6;
+  }
+  .nota svg{width:18px; height:18px; flex-shrink:0; margin-top:2px; color:var(--aviso)}
+
+  /* ---------- ESPAÇO / SOBRE ---------- */
+  #espaco{background:var(--creme-2)}
+  .sobre-grid{display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center}
+  .sobre-imgs{position:relative; display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  .sobre-bloco{
+    border-radius:var(--raio); overflow:hidden;
+    background:linear-gradient(150deg, var(--sage), var(--sage-deep));
+    position:relative;
+  }
+  .sobre-bloco:nth-child(1){aspect-ratio:3/4; transform:translateY(28px)}
+  .sobre-bloco:nth-child(2){aspect-ratio:3/4; background:linear-gradient(150deg, var(--terra), #8B5A40)}
+  .sobre-bloco::after{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.15), transparent 60%);
+  }
+  .sobre-txt h2{margin-bottom:22px}
+  .sobre-txt p{color:var(--suave); font-size:1rem; margin-bottom:20px; line-height:1.75}
+  .sobre-lista{list-style:none; margin:0; padding:0; display:grid; gap:16px; margin-top:32px}
+  .sobre-lista li{display:flex; gap:14px; align-items:flex-start; font-size:.92rem; color:var(--tinta-suave)}
+  .sobre-lista li svg{width:18px; height:18px; color:var(--sage); flex-shrink:0; margin-top:3px}
+  @media (max-width:880px){
+    .sobre-grid{grid-template-columns:1fr; gap:44px}
+    .sobre-imgs{max-width:420px; margin-inline:auto}
+  }
+
+  /* ---------- PROFISSIONAIS ---------- */
+  .prof-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:56px}
+  .prof{
+    background:var(--papel); border:1px solid var(--linha); border-radius:var(--raio);
+    padding:28px; box-shadow:var(--sombra-s);
+    transition:opacity .25s ease, border-color .25s ease, transform .25s ease;
+    display:flex; flex-direction:column;
+  }
+  .prof:hover{transform:translateY(-3px); box-shadow:var(--sombra)}
+  .prof.inativo{opacity:.45; border-style:dashed; transform:none !important; box-shadow:var(--sombra-s) !important}
+  .prof-topo{display:flex; align-items:flex-start; justify-content:space-between; gap:14px; margin-bottom:20px}
+  .prof-id{display:flex; gap:14px; align-items:center}
+  .avatar{
+    width:48px; height:48px; border-radius:50%; display:grid; place-items:center;
+    font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.35rem;
+    border:1px solid var(--linha); flex-shrink:0;
+  }
+  .prof h3{font-size:1.15rem; margin-bottom:3px}
+  .prof .turno{font-size:.75rem; font-weight:500; color:var(--suave); letter-spacing:.05em; text-transform:uppercase}
+  .switch{
+    position:relative; width:40px; height:22px; border-radius:999px; border:0; cursor:pointer;
+    background:#DDD3C4; transition:background .2s ease; flex-shrink:0; padding:0;
+  }
+  .switch::after{
+    content:""; position:absolute; top:3px; left:3px; width:16px; height:16px;
+    border-radius:50%; background:#fff; transition:transform .2s ease; box-shadow:0 1px 3px rgba(0,0,0,.25);
+  }
+  .switch[aria-checked="true"]{background:var(--sage)}
+  .switch[aria-checked="true"]::after{transform:translateX(18px)}
+  .prof-tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:auto}
+  .prof-tag{
+    font-size:.72rem; font-weight:500; padding:5px 10px; border-radius:6px;
+    background:var(--creme-2); color:var(--suave); border:1px solid var(--linha);
+  }
+  @media (max-width:880px){ .prof-grid{grid-template-columns:1fr} }
+
+
+  /* ---------- DEPOIMENTOS ---------- */
+  #depoimentos{background:var(--tinta); color:#EDE7DD}
+  #depoimentos .eyebrow{color:var(--ouro)}
+  #depoimentos .eyebrow::before, #depoimentos .eyebrow.center::after{background:var(--ouro)}
+  #depoimentos h2{color:#fff}
+  .depo-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px}
+  .depo{
+    background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09);
+    border-radius:var(--raio); padding:32px;
+  }
+  .depo-stars{color:var(--ouro); letter-spacing:.15em; font-size:.85rem; margin-bottom:18px}
+  .depo blockquote{
+    margin:0 0 24px; font-family:'Cormorant Garamond',serif; font-size:1.25rem;
+    line-height:1.5; color:#fff; font-style:italic; font-weight:400;
+  }
+  .depo-autor{display:flex; align-items:center; gap:12px}
+  .depo-autor .ini{
+    width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.1);
+    display:grid; place-items:center; font-family:'Cormorant Garamond',serif;
+    font-size:1.1rem; color:#fff; border:1px solid rgba(255,255,255,.15);
+  }
+  .depo-autor strong{display:block; color:#fff; font-size:.9rem; font-weight:600}
+  .depo-autor span{color:rgba(255,255,255,.55); font-size:.76rem}
+  @media (max-width:880px){ .depo-grid{grid-template-columns:1fr} }
+
+  /* ---------- FORMULÁRIO ---------- */
+  .form-card{
+    background:var(--papel); border:1px solid var(--linha); border-radius:20px;
+    padding:44px; box-shadow:var(--sombra); max-width:860px; margin-inline:auto;
+  }
+  .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+  .campo{display:flex; flex-direction:column; gap:8px}
+  .campo.largo{grid-column:1/-1}
+  .campo label{
+    font-size:.72rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--suave);
+  }
+  .campo input, .campo select, .campo textarea{
+    font-family:'Inter',sans-serif; font-size:.93rem; color:var(--tinta);
+    padding:13px 15px; border:1px solid var(--linha); border-radius:8px;
+    background:var(--creme); outline:none; width:100%;
+    transition:border-color .15s, box-shadow .15s, background .15s;
+  }
+  .campo input:focus, .campo select:focus, .campo textarea:focus{
+    border-color:var(--sage); background:#fff; box-shadow:0 0 0 3px rgba(86,107,84,.1);
+  }
+  .campo textarea{resize:vertical; min-height:92px; line-height:1.6}
+  .campo small.ajuda{font-size:.74rem; color:var(--suave); line-height:1.5}
+  .erro{
+    display:none; background:var(--alerta-bg); border:1px solid #F0CFC2; color:#7A2E17;
+    border-radius:8px; padding:12px 16px; font-size:.85rem;
+  }
+  .erro.visivel{display:block}
+  .check{
+    display:flex; gap:11px; align-items:flex-start; font-size:.82rem; color:var(--suave);
+    line-height:1.6;
+  }
+  .check input{margin-top:2px; accent-color:var(--sage); width:16px; height:16px; flex-shrink:0}
+  .form-rodape{
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--linha);
+    display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between;
+  }
+  .form-rodape small{color:var(--suave); font-size:.78rem; max-width:36ch; line-height:1.5}
+  @media (max-width:700px){
+    .form-card{padding:28px 24px}
+    .form-grid{grid-template-columns:1fr}
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq{max-width:800px; margin-inline:auto}
+  .faq-item{border-bottom:1px solid var(--linha)}
+  .faq-item summary{
+    list-style:none; cursor:pointer; padding:22px 0;
+    display:flex; justify-content:space-between; align-items:center; gap:20px;
+    font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:500;
+    transition:color .15s;
+  }
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary:hover{color:var(--sage)}
+  .faq-item summary::after{
+    content:"+"; font-family:'Inter',sans-serif; font-size:1.4rem; font-weight:300;
+    color:var(--suave); transition:transform .2s ease;
+  }
+  .faq-item[open] summary::after{transform:rotate(45deg); color:var(--sage)}
+  .faq-item p{padding:0 0 24px; color:var(--suave); font-size:.92rem; line-height:1.7; max-width:64ch}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--creme-2); border-top:1px solid var(--linha); padding:64px 0 32px}
+  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:44px; margin-bottom:48px}
+  .foot-col h4{font-family:'Inter',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--suave); margin-bottom:20px}
+  .foot-col p, .foot-col a, .foot-col li{font-size:.87rem; color:var(--tinta-suave); line-height:1.9}
+  .foot-col ul{list-style:none; margin:0; padding:0}
+  .foot-col a:hover{color:var(--sage)}
+  .foot-marca p{color:var(--suave); font-size:.85rem; line-height:1.7; max-width:34ch; margin-top:14px}
+  .foot-marca .marca{margin-bottom:0}
+  .foot-final{
+    border-top:1px solid var(--linha); padding-top:28px;
+    display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between;
+    font-size:.78rem; color:var(--suave);
+  }
+  @media (max-width:860px){ .foot-grid{grid-template-columns:1fr 1fr; gap:32px} }
+  @media (max-width:520px){ .foot-grid{grid-template-columns:1fr} }
+
+  /* ---------- BOTÃO FIXO WHATSAPP ---------- */
+  .wpp-fixo{
+    position:fixed; right:22px; bottom:22px; z-index:60;
+    width:54px; height:54px; border-radius:50%;
+    background:#25D366; color:#fff; display:grid; place-items:center;
+    box-shadow:0 8px 24px -8px rgba(37,211,102,.6), 0 4px 12px -4px rgba(0,0,0,.2);
+    transition:transform .18s ease;
+  }
+  .wpp-fixo:hover{transform:scale(1.08)}
+  .wpp-fixo svg{width:26px; height:26px}
+  @media (max-width:520px){ .wpp-fixo{right:16px; bottom:16px; width:48px; height:48px} }
+
+  /* ---------- IMPRESSÃO ---------- */
+  @media print{
+    .nav, .anuncio, .hero, #agendar, #depoimentos, footer, .wpp-fixo,
+    .switch, .btn{display:none !important}
+    body{background:#fff}
+    section{padding:16px 0; break-inside:avoid}
+    .tabela-wrap, .prof, .nota{box-shadow:none; border:1px solid #ccc}
+    .preco{border-bottom:1px solid #999}
+    .preco:empty{border-bottom:1px solid #999; height:1.2em}
+    .preco:empty::before{content:""}
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="anuncio">
+  <strong>Seg a Sex</strong> · 08h às 19h <span>·</span> <strong>Sáb</strong> · 09h às 14h <span>·</span> Agendamento com 24h de antecedência
+</div>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#" class="marca">
+      <span class="marca-selo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 2c-1.5 4-4 6-4 10a4 4 0 0 0 8 0c0-4-2.5-6-4-10z"/>
+          <path d="M8 14c-2 1-4 3-4 6h16c0-3-2-5-4-6"/>
+        </svg>
+      </span>
+      <span class="marca-txt">
+        <strong>Caal Massagens</strong>
+        <small>Massoterapia</small>
+      </span>
+    </a>
+    <nav class="nav-links">
+      <a href="#servicos">Serviços</a>
+      <a href="#espaco">O espaço</a>
+      <a href="#equipe">Equipe</a>
+      <a href="#regras">Funcionamento</a>
+      <a href="#depoimentos">Depoimentos</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#faq" class="btn btn-secundario">Dúvidas</a>
+      <a href="#agendar" class="btn btn-primario">
+        Agendar
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-in">
+    <div>
+      <span class="eyebrow">Massoterapia · Curitiba</span>
+      <h1>O tempo certo para <em>cuidar de você</em>.</h1>
+      <p class="lead">
+        Serviços de massoterapia em um ambiente acolhedor, com três profissionais
+        dedicados e uma agenda que respeita o intervalo entre cada atendimento — para que você
+        chegue, respire fundo e saia de verdade renovado.
+      </p>
+      <div class="hero-acoes">
+        <a href="#agendar" class="btn btn-primario">
+          Agendar minha sessão
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#servicos" class="btn btn-secundario">Ver serviços e valores</a>
+      </div>
+      <div class="hero-metas">
+        <div class="meta">
+          <span class="num">08</span>
+          <span class="lbl">Serviços</span>
+        </div>
+        <div class="meta">
+          <span class="num">03</span>
+          <span class="lbl">Terapeutas</span>
+        </div>
+        <div class="meta">
+          <span class="num">02</span>
+          <span class="lbl">Macas</span>
+        </div>
+        <div class="meta">
+          <span class="num">15'</span>
+          <span class="lbl">Intervalo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-img">
+      <div class="hero-img-in">
+        <span class="tag">Ambiente pensado</span>
+        <h3>Um santuário no meio da rotina.</h3>
+        <p>Iluminação indireta, som ambiente e temperatura controlada em cada sala de atendimento.</p>
+        <div class="assinatura">
+          <span class="assinatura-dot"></span>
+          <span>Mercado Municipal Capão Raso · Novo Mundo, Curitiba</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust">
+  <div class="wrap trust-in">
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+      <span><strong>Terapeutas certificados</strong> · formação em massoterapia clínica</span>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      <span><strong>Sem atrasos</strong> · 15 min entre cada sessão</span>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6M12 2v14M7 7l5-5 5 5"/></svg>
+      <span><strong>Fácil localização</strong> · em frente ao Terminal Capão Raso</span>
+    </div>
+  </div>
+</div>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Nossos serviços</span>
+      <h2>Oito caminhos para o seu bem-estar</h2>
+      <p>
+        Cada serviço reserva <strong>15 minutos de intervalo</strong> entre atendimentos para
+        higienização da maca e preparo do ambiente. O tempo total ocupado é o que bloqueia a
+        agenda — assim garantimos que sua sessão nunca seja corrida.
+      </p>
+    </div>
+
+    <div class="servicos-topo">
+      <div>
+        <h3>Tabela de serviços e valores</h3>
+        <small>Valores informativos · use “Imprimir” para gerar PDF</small>
+      </div>
+      <button class="btn btn-secundario" onclick="window.print()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>
+        Imprimir tabela
+      </button>
+    </div>
+
+    <div class="tabela-wrap">
+      <table id="tabela-servicos">
+        <thead>
+          <tr>
+            <th scope="col">Serviço</th>
+            <th scope="col" class="num">Duração</th>
+            <th scope="col" class="num">Intervalo</th>
+            <th scope="col" class="num">Total</th>
+            <th scope="col" class="num">Angela</th>
+            <th scope="col" class="num">Clodoaldo</th>
+            <th scope="col" class="num">Marilice</th>
+            <th scope="col" style="text-align:right">Valor</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+</div>
+</section>
+
+<!-- ESPAÇO / SOBRE -->
+<section id="espaco">
+  <div class="wrap sobre-grid">
+    <div class="sobre-imgs">
+      <div class="sobre-bloco"></div>
+      <div class="sobre-bloco"></div>
+    </div>
+    <div class="sobre-txt">
+      <span class="eyebrow">O espaço</span>
+      <h2>Um ambiente desenhado para desacelerar.</h2>
+      <p>
+        A Caal Massagens nasceu da ideia de que massoterapia não é luxo — é cuidado. Cada detalhe do
+        espaço foi pensado para reduzir estímulos: luz indireta, isolamento acústico, aromas
+        suaves e enxoval de algodão orgânico trocado a cada atendimento.
+      </p>
+      <p>
+        Aqui, a agenda é organizada para que você nunca se sinta apressado — nem na chegada,
+        nem no fim da sessão.
+      </p>
+      <ul class="sobre-lista">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>Enxoval de algodão orgânico trocado integralmente a cada sessão</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>Aromaterapia personalizada de acordo com o serviço escolhido</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>Sala de espera silenciosa com chá e água infusionada</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>Acesso acessível e estacionamento conveniado ao lado</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPE -->
+<section id="equipe">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow center">Nossa equipe</span>
+      <h2>Quem cuida de você</h2>
+      <p>Três terapeutas com formações complementares. Durante a semana, cada um segue seu turno; aos sábados, a equipe trabalha em conjunto, dividindo atendimentos e tarefas de apoio.</p>
+    </div>
+
+    <div class="prof-grid">
+      <article class="prof" data-prof="angela" data-turno="manha">
+        <div class="prof-topo">
+          <div class="prof-id">
+            <div class="avatar" style="background:#F5E8DA; color:#9A6234">A</div>
+            <div>
+              <h3>Angela</h3>
+              <span class="turno">Manhã · 08h–12h</span>
+            </div>
+          </div>
+          <button class="switch" role="switch" aria-checked="true" aria-label="Angela no turno da manhã"></button>
+        </div>
+        <div class="prof-tags">
+          <span class="prof-tag">Quick</span>
+          <span class="prof-tag">Relaxante</span>
+          <span class="prof-tag">Terapêutica</span>
+          <span class="prof-tag">Drenagem</span>
+          <span class="prof-tag">Casal</span>
+          <span class="prof-tag">Avaliação</span>
+        </div>
+      </article>
+
+      <article class="prof" data-prof="clodoaldo" data-turno="tarde">
+        <div class="prof-topo">
+          <div class="prof-id">
+            <div class="avatar" style="background:#E3EAE4; color:#566B54">C</div>
+            <div>
+              <h3>Clodoaldo</h3>
+              <span class="turno">Tarde · 13h–19h</span>
+            </div>
+          </div>
+          <button class="switch" role="switch" aria-checked="true" aria-label="Clodoaldo no turno da tarde"></button>
+        </div>
+        <div class="prof-tags">
+          <span class="prof-tag">Quick</span>
+          <span class="prof-tag">Relaxante</span>
+          <span class="prof-tag">Terapêutica</span>
+          <span class="prof-tag">Modeladora</span>
+          <span class="prof-tag">Desportiva</span>
+          <span class="prof-tag">Casal</span>
+        </div>
+      </article>
+
+      <article class="prof" data-prof="marilice" data-turno="tarde">
+        <div class="prof-topo">
+          <div class="prof-id">
+            <div class="avatar" style="background:#EFE3E8; color:#8A5A72">M</div>
+            <div>
+              <h3>Marilice</h3>
+              <span class="turno">Tarde · 13h–19h</span>
+            </div>
+          </div>
+          <button class="switch" role="switch" aria-checked="true" aria-label="Marilice no turno da tarde"></button>
+        </div>
+        <div class="prof-tags">
+          <span class="prof-tag">Relaxante</span>
+          <span class="prof-tag">Terapêutica</span>
+          <span class="prof-tag">Drenagem</span>
+          <span class="prof-tag">Modeladora</span>
+          <span class="prof-tag">Casal</span>
+          <span class="prof-tag">Avaliação</span>
+        </div>
+      </article>
+    </div>
+
+  </div>
+</section>
+
+<!-- REGRAS / PREMISSAS -->
+<section id="regras" style="background:var(--creme-2)">
+  <div class="wrap-n">
+    <div class="sec-head">
+      <span class="eyebrow">Como funciona</span>
+      <h2>Regras de funcionamento</h2>
+      <p>Duas premissas que garantem a qualidade do atendimento e evitam sobreposição de horários.</p>
+    </div>
+<div class="nota" style="background:var(--papel); border:1px solid var(--linha); color:var(--tinta-suave); margin-bottom:24px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--sage)"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <div>
+        <strong style="color:var(--tinta)">Um cliente por profissional.</strong>
+        Nenhum terapeuta atende duas pessoas ao mesmo tempo. A massagem para casal é a única
+        exceção — dois clientes, mas <strong>dois profissionais</strong> e <strong>duas macas</strong>
+        em paralelo.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section id="depoimentos">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow center">Depoimentos</span>
+      <h2>O que dizem sobre nós</h2>
+    </div>
+    <div class="depo-grid">
+      <article class="depo">
+        <div class="depo-stars">★★★★★</div>
+        <blockquote>“Fui pela primeira vez para uma sessão de drenagem e saí com a sensação de ter dormido oito horas. O ambiente é silencioso de verdade.”</blockquote>
+        <div class="depo-autor">
+          <div class="ini">R</div>
+          <div><strong>Renata M.</strong><span>Drenagem Linfática</span></div>
+        </div>
+      </article>
+      <article class="depo">
+        <div class="depo-stars">★★★★★</div>
+        <blockquote>“O Clodoaldo resolveu uma tensão cervical que eu carregava há meses. Saí de lá sem dor pela primeira vez no ano.”</blockquote>
+        <div class="depo-autor">
+          <div class="ini">P</div>
+          <div><strong>Paulo H.</strong><span>Massagem Terapêutica</span></div>
+        </div>
+      </article>
+      <article class="depo">
+        <div class="depo-stars">★★★★★</div>
+        <blockquote>“Fizemos a massagem para casal no aniversário de casamento. A atenção aos detalhes — do aroma ao chá na saída — fez toda a diferença.”</blockquote>
+        <div class="depo-autor">
+          <div class="ini">L</div>
+          <div><strong>Larissa e Bruno</strong><span>Massagem para Casal</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULÁRIO -->
+<section id="agendar">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow center">Reserve seu horário</span>
+      <h2>Solicitar agendamento</h2>
+      <p>Preencha os dados abaixo e sua solicitação será enviada diretamente para o nosso WhatsApp.</p>
+    </div>
+
+    <form class="form-card" id="form-agendamento" novalidate>
+      <div class="form-grid">
+        <div class="campo">
+          <label for="nome">Nome completo</label>
+          <input type="text" id="nome" name="nome" required placeholder="Como podemos te chamar?">
+        </div>
+        <div class="campo">
+          <label for="whatsapp">WhatsApp</label>
+          <input type="tel" id="whatsapp" name="whatsapp" required placeholder="(11) 90000-0000">
+        </div>
+
+        <div class="campo">
+          <label for="servico">Serviço</label>
+          <select id="servico" name="servico" required></select>
+        </div>
+        <div class="campo">
+          <label for="profissional">Profissional</label>
+          <select id="profissional" name="profissional" required>
+            <option value="">Selecione…</option>
+            <option value="angela">Angela (manhã)</option>
+            <option value="clodoaldo">Clodoaldo (tarde)</option>
+            <option value="marilice">Marilice (tarde)</option>
+            <option value="sem">Sem preferência</option>
+          </select>
+          <small class="ajuda" id="ajuda-prof"></small>
+        </div>
+
+        <div class="campo">
+          <label for="data">Data</label>
+          <input type="date" id="data" name="data" required>
+        </div>
+        <div class="campo">
+          <label for="horario">Horário</label>
+          <select id="horario" name="horario" required>
+            <option value="">Escolha o serviço primeiro</option>
+          </select>
+        </div>
+
+        <div class="campo largo">
+          <label for="obs">Observações</label>
+          <textarea id="obs" name="obs" placeholder="Objetivo da sessão, preferência de pressão (leve/média/forte), alergias, gestante, condições de saúde relevantes…"></textarea>
+        </div>
+
+        <div class="campo largo">
+          <div class="erro" id="erro-form" role="alert"></div>
+          <label class="check">
+            <input type="checkbox" id="lgpd" required>
+            <span>Autorizo o uso dos meus dados para contato e agendamento, conforme a LGPD, e estou ciente da política de cancelamento com até 24h de antecedência.</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-rodape">
+        <small>O agendamento só é confirmado após o retorno da equipe pelo WhatsApp.</small>
+        <button type="submit" class="btn btn-primario">
+          Enviar pedido pelo WhatsApp
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:var(--creme-2)">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow center">Dúvidas frequentes</span>
+      <h2>Antes de agendar</h2>
+    </div>
+    <div class="faq">
+      <details class="faq-item">
+        <summary>Preciso chegar com antecedência?</summary>
+        <p>Recomendamos chegar 10 minutos antes do horário agendado. Esse tempo é para você se acomodar, tomar um chá e preencher a ficha de anamnese com calma. O atendimento começa pontualmente.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Como funciona o pagamento?</summary>
+        <p>Aceitamos Pix, cartão de débito e crédito no local. Para a massagem para casal, solicitamos um sinal de 30% via Pix para reservar as duas macas e os dois profissionais.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Qual a política de cancelamento?</summary>
+        <p>Cancelamentos e remarcações com até 24h de antecedência não têm custo. Abaixo disso, o sinal (quando houver) é retido. Remarcação permitida uma vez sem custo.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Gestantes podem fazer massagem?</summary>
+        <p>Sim, com adaptações. Informe na observação do formulário e a terapeuta indicará o serviço mais adequado. A partir do segundo trimestre, trabalhamos apenas com posicionamento lateral esquerdo.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col foot-marca">
+        <a href="#" class="marca">
+          <span class="marca-selo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2c-1.5 4-4 6-4 10a4 4 0 0 0 8 0c0-4-2.5-6-4-10z"/>
+              <path d="M8 14c-2 1-4 3-4 6h16c0-3-2-5-4-6"/>
+            </svg>
+          </span>
+          <span class="marca-txt">
+            <strong>Caal Massagens</strong>
+            <small>Massoterapia</small>
+          </span>
+        </a>
+        <p>Massoterapia com agenda organizada para respeitar o seu tempo, no Mercado Municipal Capão Raso, em Curitiba.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Navegar</h4>
+        <ul>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#espaco">O espaço</a></li>
+          <li><a href="#equipe">Equipe</a></li>
+          <li><a href="#depoimentos">Depoimentos</a></li>
+          <li><a href="#faq">Dúvidas</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Funcionamento</h4>
+        <p>Seg–Sex · 08h–19h<br>Sáb · 09h–14h<br>Dom · fechado</p>
+      </div>
+      <div class="foot-col">
+        <h4>Contato</h4>
+        <ul>
+          <li>Mercado Municipal Capão Raso<br>Rua Otto Cabel, 51 — em frente ao Terminal Capão Raso<br>Novo Mundo, Curitiba — PR, 81020-245</li>
+          <li><a href="#">+55 11 99999-9999</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-final">
+      <span>© <span id="ano"></span> Caal Massagens · Todos os direitos reservados</span>
+      <span>Página demonstrativa · feito com cuidado</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FIXO -->
+<a class="wpp-fixo" href="#agendar" aria-label="Agendar pelo WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2s-.8 1-1 1.2c-.2.2-.4.2-.7 0-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.4.1-.6.1-.1.3-.4.5-.5.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.7-1.6-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.6-.7 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 4.9L2 22l5.3-1.3c1.3.7 2.9 1.1 4.6 1.1 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+</a>
+
+<script>
+/* =========================================================
+   1. CONFIGURAÇÃO
+   ========================================================= */
+const WHATSAPP = "5541999757667"; // 
+
+const SERVICOS = [
+  { nome:"Quick Massage",                 dur:30, angela:"sim", clodoaldo:"sim", marilice:"nao", obs:"Sessão rápida em maca, foco em cervical e ombros" },
+  { nome:"Massagem Relaxante",            dur:50, angela:"sim", clodoaldo:"sim", marilice:"sim", obs:"Pressão suave, aromaterapia opcional" },
+  { nome:"Massagem Terapêutica",          dur:60, angela:"sim", clodoaldo:"sim", marilice:"sim", obs:"Foco em dores e tensões específicas" },
+  { nome:"Drenagem Linfática",            dur:60, angela:"sim", clodoaldo:"nao", marilice:"sim", obs:"Manobras suaves de drenagem" },
+  { nome:"Massagem Modeladora",           dur:50, angela:"nao", clodoaldo:"sim", marilice:"sim", obs:"Manobras firmes e ritmadas" },
+  { nome:"Massagem Desportiva",           dur:60, angela:"nao", clodoaldo:"sim", marilice:"nao", obs:"Pré ou pós-treino, liberação muscular" },
+  { nome:"Massagem para Casal",           dur:60, angela:"sim", clodoaldo:"sim", marilice:"sim", obs:"2 macas + 2 profissionais simultâneos" },
+  { nome:"Avaliação + Plano Terapêutico", dur:45, angela:"sim", clodoaldo:"sim", marilice:"sim", obs:"Anamnese e definição do atendimento" }
+];
+
+const INTERVALO = 15;
+
+const TURNOS = {
+  manha:  { label:"Manhã",  inicio: 8*60,  fim: 12*60 },
+  tarde:  { label:"Tarde",  inicio: 13*60, fim: 19*60 },
+  sabado: { label:"Sábado", inicio: 9*60,  fim: 14*60 }
+};
+
+// Durante a semana, cada profissional mantém seu turno original.
+// Aos sábados, os três trabalham juntos e dividem atendimentos e apoio.
+const PROS = {
+  angela:    { nome:"Angela",    turno:"manha", trabalhaSabado:true },
+  clodoaldo: { nome:"Clodoaldo", turno:"tarde", trabalhaSabado:true },
+  marilice:  { nome:"Marilice",  turno:"tarde", trabalhaSabado:true }
+};
+
+function diaSelecionado(data){
+  if (!data) return null;
+  return new Date(`${data}T12:00:00`).getDay();
+}
+
+function turnoDoProfissional(prof, data){
+  const dia = diaSelecionado(data);
+  if (dia === 6) return PROS[prof]?.trabalhaSabado ? "sabado" : null;
+  if (dia === 0) return null;
+  return PROS[prof]?.turno || null;
+}
+
+function profissionalAtivo(prof){
+  const card = cards.find(c => c.dataset.prof === prof);
+  return card?.querySelector(".switch").getAttribute("aria-checked") === "true";
+}
+
+/* =========================================================
+   2. TABELA
+   ========================================================= */
+const pill = v => v === "sim"
+  ? '<span class="pill sim" title="Realiza"></span>'
+  : '<span class="pill nao" title="Não realiza"></span>';
+
+document.querySelector("#tabela-servicos tbody").innerHTML = SERVICOS.map(s => {
+  const total = s.dur + INTERVALO;
+  return `
+    <tr>
+      <td data-label="Serviço">
+        <span class="nome-serv">${s.nome}<small>${s.obs}</small></span>
+      </td>
+      <td data-label="Duração" class="num">${s.dur} min</td>
+      <td data-label="Intervalo" class="num">${INTERVALO} min</td>
+      <td data-label="Total" class="num"><strong>${total} min</strong></td>
+      <td data-label="Angela" class="num">${pill(s.angela)}</td>
+      <td data-label="Clodoaldo" class="num">${pill(s.clodoaldo)}</td>
+      <td data-label="Marilice" class="num">${pill(s.marilice)}</td>
+      <td data-label="Valor" class="preco" aria-label="Preço de ${s.nome}"></td>
+    </tr>`;
+}).join("");
+
+/* =========================================================
+   3. SIMULADOR
+   ========================================================= */
+const cards = [...document.querySelectorAll(".prof")];
+
+function atualizarProfissionaisAtivos(){
+  const sel = document.getElementById("profissional");
+  [...sel.options].forEach(op => {
+    if (PROS[op.value]) {
+      const ativo = cards.find(c => c.dataset.prof === op.value)
+        ?.querySelector(".switch").getAttribute("aria-checked") === "true";
+      op.disabled = !ativo;
+    }
+  });
+}
+
+cards.forEach(card => {
+  const sw = card.querySelector(".switch");
+  sw.addEventListener("click", () => {
+    const novo = sw.getAttribute("aria-checked") !== "true";
+    sw.setAttribute("aria-checked", String(novo));
+    card.classList.toggle("inativo", !novo);
+    atualizarProfissionaisAtivos();
+    atualizarHorarios();
+  });
+});
+
+atualizarProfissionaisAtivos();
+
+/* =========================================================
+   4. FORMULÁRIO
+   ========================================================= */
+const selServico = document.getElementById("servico");
+const selProf = document.getElementById("profissional");
+const selHorario = document.getElementById("horario");
+const inputData = document.getElementById("data");
+const ajudaProf = document.getElementById("ajuda-prof");
+const erroBox = document.getElementById("erro-form");
+
+SERVICOS.forEach((s, i) => {
+  selServico.insertAdjacentHTML("beforeend",
+    `<option value="${i}">${s.nome} · ${s.dur} min (+${INTERVALO} min de intervalo)</option>`);
+});
+
+const hoje = new Date();
+const dataLocalHoje = `${hoje.getFullYear()}-${String(hoje.getMonth()+1).padStart(2,"0")}-${String(hoje.getDate()).padStart(2,"0")}`;
+inputData.min = dataLocalHoje;
+
+const hhmm = min => String(Math.floor(min/60)).padStart(2,"0") + ":" + String(min%60).padStart(2,"0");
+
+function slotsDoTurno(turno, total){
+  const { inicio, fim } = TURNOS[turno];
+  const out = [];
+  // Inícios em intervalos de 15 minutos; duração + intervalo precisam caber no turno.
+  for (let t = inicio; t + total <= fim; t += INTERVALO) out.push(t);
+  return out;
+}
+
+function servicoAtual(){
+  return selServico.value === "" ? null : SERVICOS[Number(selServico.value)];
+}
+
+function atualizarHorarios(){
+  const s = servicoAtual();
+  const data = inputData.value;
+  selHorario.innerHTML = "";
+
+  if (!s) {
+    selHorario.innerHTML = '<option value="">Escolha o serviço primeiro</option>';
+    return;
+  }
+  if (!data) {
+    selHorario.innerHTML = '<option value="">Escolha a data primeiro</option>';
+    ajudaProf.textContent = "";
+    return;
+  }
+
+  const dia = diaSelecionado(data);
+  if (dia === 0) {
+    selHorario.innerHTML = '<option value="">Fechado aos domingos</option>';
+    ajudaProf.textContent = "O espaço não funciona aos domingos.";
+    ajudaProf.style.color = "var(--alerta)";
+    return;
+  }
+
+  const profSel = selProf.value;
+  const elegiveis = Object.keys(PROS).filter(p =>
+    s[p] === "sim" && profissionalAtivo(p) && turnoDoProfissional(p, data)
+  );
+
+  if (profSel && profSel !== "sem") {
+    if (!profissionalAtivo(profSel)) {
+      ajudaProf.textContent = `${PROS[profSel].nome} está indisponível no momento.`;
+      ajudaProf.style.color = "var(--alerta)";
+      selHorario.innerHTML = '<option value="">Profissional indisponível</option>';
+      return;
+    }
+    if (s[profSel] === "nao") {
+      ajudaProf.textContent = `${PROS[profSel].nome} não realiza este serviço — escolha outro profissional.`;
+      ajudaProf.style.color = "var(--alerta)";
+      selHorario.innerHTML = '<option value="">Serviço indisponível para este profissional</option>';
+      return;
+    }
+    const turno = turnoDoProfissional(profSel, data);
+    if (!turno) {
+      selHorario.innerHTML = '<option value="">Sem expediente nesta data</option>';
+      return;
+    }
+    ajudaProf.textContent = dia === 6
+      ? `${PROS[profSel].nome} · equipe de sábado · ${s.dur} min + ${INTERVALO} min de intervalo.`
+      : `Turno da ${TURNOS[turno].label.toLowerCase()} · ${s.dur} min + ${INTERVALO} min de intervalo.`;
+    ajudaProf.style.color = "";
+  } else {
+    if (!elegiveis.length) {
+      ajudaProf.textContent = "Nenhum profissional ativo está disponível para este serviço nesta data.";
+      ajudaProf.style.color = "var(--alerta)";
+      selHorario.innerHTML = '<option value="">Sem profissionais disponíveis</option>';
+      return;
+    }
+    ajudaProf.textContent = profSel === "sem"
+      ? `Disponível com: ${elegiveis.map(p => PROS[p].nome).join(", ")}.`
+      : "Selecione um profissional ou escolha sem preferência.";
+    ajudaProf.style.color = "";
+  }
+
+  const profissionaisParaMostrar = (profSel && profSel !== "sem") ? [profSel] : elegiveis;
+  const turnosParaMostrar = [...new Set(profissionaisParaMostrar.map(p => turnoDoProfissional(p, data)).filter(Boolean))];
+  const total = s.dur + INTERVALO;
+  selHorario.innerHTML = '<option value="">Selecione…</option>';
+  let achou = false;
+
+  turnosParaMostrar.forEach(t => {
+    const slots = slotsDoTurno(t, total);
+    if (!slots.length) return;
+    achou = true;
+    const grupo = document.createElement("optgroup");
+    grupo.label = `${TURNOS[t].label} (${hhmm(TURNOS[t].inicio)}–${hhmm(TURNOS[t].fim)})`;
+    slots.forEach(m => {
+      const o = document.createElement("option");
+      o.value = `${hhmm(m)} (${TURNOS[t].label})`;
+      o.textContent = `${hhmm(m)} — termina ${hhmm(m + total)}`;
+      grupo.appendChild(o);
+    });
+    selHorario.appendChild(grupo);
+  });
+
+  if (!achou) selHorario.innerHTML = '<option value="">Sem horário disponível nesta data</option>';
+}
+
+selServico.addEventListener("change", atualizarHorarios);
+selProf.addEventListener("change", atualizarHorarios);
+inputData.addEventListener("change", atualizarHorarios);
+atualizarHorarios();
+
+document.getElementById("whatsapp").addEventListener("input", e => {
+  let v = e.target.value.replace(/\D/g, "").slice(0, 11);
+  if (v.length > 6) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+  else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+  else if (v.length > 0) v = `(${v}`;
+  e.target.value = v;
+});
+
+function mostrarErro(msg){
+  erroBox.innerHTML = msg;
+  erroBox.classList.add("visivel");
+  erroBox.scrollIntoView({ behavior:"smooth", block:"center" });
+}
+
+document.getElementById("form-agendamento").addEventListener("submit", e => {
+  e.preventDefault();
+  erroBox.classList.remove("visivel");
+
+  const nome = document.getElementById("nome").value.trim();
+  const fone = document.getElementById("whatsapp").value.trim();
+  const s = servicoAtual();
+  const prof = selProf.value;
+  const data = inputData.value;
+  const horario = selHorario.value;
+  const local = "Estúdio";
+  const obs = document.getElementById("obs").value.trim();
+  const lgpd = document.getElementById("lgpd").checked;
+
+  if (!nome) return mostrarErro("Informe seu nome completo.");
+  if (fone.replace(/\D/g,"").length < 10) return mostrarErro("Informe um WhatsApp válido com DDD.");
+  if (!s) return mostrarErro("Escolha o serviço desejado.");
+  if (!prof) return mostrarErro("Escolha o profissional ou marque “Sem preferência”.");
+  if (prof !== "sem" && s[prof] === "nao")
+    return mostrarErro(`${PROS[prof].nome} não realiza ${s.nome}. Escolha outro profissional ou outro serviço.`);
+  if (!data) return mostrarErro("Escolha a data.");
+  if (data < dataLocalHoje) return mostrarErro("A data escolhida já passou.");
+  if (diaSelecionado(data) === 0) return mostrarErro("O espaço não funciona aos domingos.");
+  if (!horario) return mostrarErro("Escolha o horário.");
+  if (prof !== "sem" && !profissionalAtivo(prof)) return mostrarErro("O profissional selecionado está indisponível. Atualize sua escolha.");
+  if (s.nome === "Massagem para Casal") return mostrarErro("O agendamento para casal precisa da seleção de dois profissionais. Essa opção será habilitada na próxima atualização para evitar uma reserva incompleta.");
+  if (!lgpd) return mostrarErro("É necessário aceitar o uso dos dados e a política de cancelamento.");
+
+  const dataBR = data.split("-").reverse().join("/");
+  const profNome = prof === "sem" ? "Sem preferência" : PROS[prof].nome;
+
+  const msg =
+`Olá! Gostaria de agendar uma massagem.
+
+• Serviço: ${s.nome} (${s.dur} min + ${INTERVALO} min de intervalo)
+• Profissional: ${profNome}
+• Data: ${dataBR}
+• Horário: ${horario}
+• Local: ${local}
+${obs ? `• Observações: ${obs}` : ""}
+
+Nome: ${nome}
+WhatsApp: ${fone}
+
+Aguardo confirmação. Obrigado(a)!`;
+
+  window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, "_blank");
+});
+
+document.getElementById("ano").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

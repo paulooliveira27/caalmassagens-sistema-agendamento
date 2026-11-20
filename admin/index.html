@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Administração | Caal Massagens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#f5f3ee;--card:#fff;--ink:#292b26;--muted:#74786e;--line:#e6e4dc;--sage:#65745f;--sage-dark:#4d5d48;--danger:#a33b32;--shadow:0 18px 55px rgba(38,43,34,.08)}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh}
+    .top{background:#fff;border-bottom:1px solid var(--line);padding:18px 24px}.top-in{max-width:1000px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font-family:'Playfair Display',serif;font-size:22px}.brand small{display:block;font:11px 'DM Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+    main{max-width:1000px;margin:46px auto;padding:0 20px}.intro{margin-bottom:24px}.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);font-weight:700}.intro h1{font:600 clamp(28px,4vw,38px) 'Playfair Display',serif;margin:8px 0}.intro p{color:var(--muted);margin:0;line-height:1.6}
+    .panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:var(--shadow)}.login{max-width:440px;margin:32px auto}.field{display:grid;gap:7px;margin:16px 0}.field label{font-size:13px;font-weight:600}.field input{width:100%;border:1px solid var(--line);border-radius:10px;padding:13px 14px;font:15px 'DM Sans',sans-serif;background:#fff;color:var(--ink)}.field input:focus{outline:2px solid #aab6a2;border-color:var(--sage)}
+    button{border:0;border-radius:10px;padding:12px 17px;font:600 14px 'DM Sans',sans-serif;cursor:pointer}.primary{background:var(--sage);color:#fff}.primary:hover{background:var(--sage-dark)}.secondary{background:#eeefe9;color:var(--ink)}.logout{background:transparent;color:var(--muted);border:1px solid var(--line)}button:disabled{opacity:.55;cursor:wait}.msg{font-size:13px;line-height:1.5;margin-top:14px;color:var(--danger)}.hint{font-size:12px;color:var(--muted);line-height:1.5;margin-top:14px}
+    #dashboard{display:none}.bar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px}.bar h2{font:600 23px 'Playfair Display',serif;margin:0}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:540px}th,td{text-align:left;padding:14px 12px;border-bottom:1px solid var(--line);font-size:14px}th{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}td small{display:block;color:var(--muted);margin-top:4px}.price{width:150px;border:1px solid var(--line);border-radius:8px;padding:10px;font:14px 'DM Sans',sans-serif}.status{font-size:12px;color:var(--muted);margin-top:16px}.actions{display:flex;justify-content:flex-end;margin-top:20px}.loading{color:var(--muted);font-size:14px;padding:22px 0}
+    @media(max-width:600px){main{margin:28px auto}.panel{padding:18px}.top{padding:15px 18px}.bar{align-items:flex-start;flex-direction:column}.logout{align-self:flex-end}}
+  
+    .calendar-panel{margin-top:24px}.calendar-panel h2{font:600 23px 'Playfair Display',serif;margin:0 0 6px}.calendar-intro{font-size:13px;color:var(--muted);line-height:1.6;margin:0 0 18px}.calendar-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}.calendar-form .field{margin:10px 0}.calendar-form input,.calendar-form select,.calendar-form textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 13px;font:14px 'DM Sans',sans-serif;background:#fff;color:var(--ink)}.calendar-form textarea{min-height:84px;resize:vertical}.calendar-form .wide{grid-column:1/-1}.calendar-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}.calendar-status{font-size:13px;line-height:1.5;color:var(--muted);margin-top:12px}.calendar-status a{color:var(--sage-dark);font-weight:700}.duration-note{font-size:12px;color:var(--muted);margin-top:5px}@media(max-width:600px){.calendar-form{grid-template-columns:1fr}.calendar-form .wide{grid-column:auto}}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="top-in"><div class="brand">Caal Massagens<small>Painel administrativo</small></div><button id="logout" class="logout" style="display:none">Sair</button></div></header>
+  <main>
+    <section class="intro"><span class="eyebrow">Área restrita</span><h1>Administração</h1><p>Entre com a conta autorizada para consultar e atualizar os valores dos serviços.</p></section>
+    <section id="login-panel" class="panel login">
+      <h2 style="font:600 24px 'Playfair Display',serif;margin:0 0 6px">Acessar painel</h2>
+      <p style="font-size:13px;color:var(--muted);margin:0 0 18px">Use o e-mail autorizado no cadastro do Caal Massagens.</p>
+      <form id="login-form">
+        <div class="field"><label for="email">E-mail</label><input id="email" type="email" autocomplete="username" required></div>
+        <div class="field"><label for="password">Senha</label><input id="password" type="password" autocomplete="current-password" required></div>
+        <button id="login-button" class="primary" type="submit" style="width:100%">Entrar</button>
+      </form>
+      <div id="login-message" class="msg" role="alert"></div>
+      <p class="hint">O acesso é verificado pelo Supabase. Somente contas previamente autorizadas podem abrir este painel.</p>
+    </section>
+    <section id="dashboard" class="panel">
+      <div class="bar"><div><h2>Preços dos serviços</h2><p style="font-size:13px;color:var(--muted);margin:5px 0 0">Altere os valores e salve para atualizar o site.</p></div><button id="reload" class="secondary" type="button">Atualizar lista</button></div>
+      <div id="services-area" class="loading">Carregando serviços...</div>
+      <div class="actions"><button id="save" class="primary" type="button">Salvar alterações</button></div>
+      <div id="dashboard-message" class="status" role="status"></div>
+
+      <section class="calendar-panel" aria-labelledby="calendar-title">
+        <div style="border-top:1px solid var(--line);padding-top:24px;margin-top:10px">
+          <h2 id="calendar-title">Google Agenda</h2>
+          <p class="calendar-intro">Conecte a agenda uma vez. Depois, registre aqui somente os atendimentos que já foram confirmados pelo WhatsApp.</p>
+          <div class="calendar-actions" style="margin-top:0;margin-bottom:18px">
+            <button id="connect-calendar" class="secondary" type="button" onclick="connectGoogleCalendar()">Conectar Google Agenda</button>
+            <span class="duration-note">A autorização será feita na conta Google do profissional responsável.</span>
+          </div>
+          <form id="calendar-form" class="calendar-form">
+            <div class="field"><label for="appointment-name">Nome do cliente</label><input id="appointment-name" type="text" maxlength="120" autocomplete="off" required></div>
+            <div class="field"><label for="appointment-service">Serviço</label><select id="appointment-service" required><option value="">Carregando serviços...</option></select><small id="appointment-duration" class="duration-note"></small></div>
+            <div class="field"><label for="appointment-date">Data</label><input id="appointment-date" type="date" required></div>
+            <div class="field"><label for="appointment-time">Horário</label><input id="appointment-time" type="time" required></div>
+            <div class="field wide"><label for="appointment-notes">Observações (opcional)</label><textarea id="appointment-notes" maxlength="1500" placeholder="Informações úteis para este atendimento"></textarea></div>
+            <div class="wide"><div class="calendar-actions"><button id="create-calendar-event" class="primary" type="submit">Adicionar ao Google Agenda</button></div><div id="calendar-message" class="calendar-status" role="status" aria-live="polite">Aguardando ação.</div></div>
+          </form>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://muegrwvtcwyijacyprji.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_SMTdDfS2iE3UxFG0Ub_KMg_UMcVXbv-";
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+    const loginPanel = document.getElementById('login-panel');
+    const dashboard = document.getElementById('dashboard');
+    const loginMessage = document.getElementById('login-message');
+    const dashboardMessage = document.getElementById('dashboard-message');
+    const logoutButton = document.getElementById('logout');
+    let services = [];
+
+    function showLogin(message='') {
+      loginPanel.style.display = 'block'; dashboard.style.display = 'none'; logoutButton.style.display = 'none';
+      loginMessage.textContent = message;
+    }
+    function showDashboard() {
+      loginPanel.style.display = 'none'; dashboard.style.display = 'block'; logoutButton.style.display = 'inline-block';
+    }
+    async function verifyAdmin(user) {
+      if (!user) return false;
+      const { data, error } = await db.from('administradores').select('user_id').eq('user_id', user.id).maybeSingle();
+      if (error) throw error;
+      return !!data;
+    }
+    async function loadServices() {
+      dashboardMessage.textContent = 'Carregando...';
+      const { data, error } = await db.from('servicos').select('id,nome,duracao,preco,ativo,ordem').order('ordem');
+      if (error) throw error;
+      services = data || [];
+      populateCalendarServices();
+      const area = document.getElementById('services-area');
+      if (!services.length) { area.textContent = 'Nenhum serviço encontrado.'; return; }
+      const table = document.createElement('table');
+      table.innerHTML = '<thead><tr><th>Serviço</th><th>Duração</th><th>Preço (R$)</th></tr></thead>';
+      const tbody = document.createElement('tbody');
+      services.forEach(service => {
+        const tr = document.createElement('tr');
+        const name = document.createElement('td'); name.textContent = service.nome;
+        const duration = document.createElement('td'); duration.textContent = `${service.duracao} min`;
+        const priceCell = document.createElement('td');
+        const input = document.createElement('input'); input.className = 'price'; input.type = 'number'; input.min = '0'; input.step = '0.01'; input.inputMode = 'decimal'; input.placeholder = 'Ex.: 90,00'; input.setAttribute('aria-label', `Preço de ${service.nome}`); input.dataset.id = service.id;
+        input.value = service.preco === null ? '' : Number(service.preco).toFixed(2);
+        priceCell.appendChild(input); tr.append(name, duration, priceCell); tbody.appendChild(tr);
+      });
+      table.appendChild(tbody); area.replaceChildren(table);
+      dashboardMessage.textContent = `${services.length} serviços carregados.`;
+    }
+    function populateCalendarServices() {
+      const select = document.getElementById('appointment-service');
+      const durationNote = document.getElementById('appointment-duration');
+      const available = services.filter(service => service.ativo !== false);
+      select.replaceChildren(new Option('Selecione um serviço...', ''));
+      available.forEach(service => select.add(new Option(service.nome, String(service.id))));
+      if (!available.length) {
+        select.replaceChildren(new Option('Nenhum serviço ativo encontrado', ''));
+        durationNote.textContent = '';
+      }
+      select.onchange = () => {
+        const selected = available.find(service => String(service.id) === select.value);
+        durationNote.textContent = selected ? `Duração cadastrada: ${selected.duracao} minutos.` : '';
+      };
+    }
+
+    async function callCalendarFunction(functionName, body = {}) {
+      const { data: sessionData, error: sessionError } = await db.auth.getSession();
+      if (sessionError) throw sessionError;
+      const session = sessionData?.session;
+      if (!session?.access_token) throw new Error('Sua sessão expirou. Entre novamente no painel.');
+
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/${functionName}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_PUBLISHABLE_KEY,
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify(body)
+      });
+      const raw = await response.text();
+      let data = {};
+      try { data = raw ? JSON.parse(raw) : {}; }
+      catch { throw new Error(`Resposta inesperada do servidor (HTTP ${response.status}).`); }
+      if (!response.ok) {
+        throw new Error(data.error || data.message || `Erro do servidor (HTTP ${response.status}).`);
+      }
+      if (data?.error) throw new Error(data.error);
+      return data;
+    }
+
+    async function connectGoogleCalendar() {
+      const button = document.getElementById('connect-calendar');
+      const message = document.getElementById('calendar-message');
+      if (!button || !message) return;
+      button.disabled = true;
+      message.textContent = 'Clique recebido. Preparando conexão segura com o Google...';
+      try {
+        const result = await callCalendarFunction('google-calendar-start');
+        const authorizationUrl = result?.url || result?.authorizationUrl;
+        if (!authorizationUrl) throw new Error('O servidor respondeu, mas não enviou o endereço de autorização.');
+        message.textContent = 'Conexão iniciada. Redirecionando para o Google...';
+        window.location.href = authorizationUrl;
+      } catch (error) {
+        message.textContent = `Não foi possível iniciar a conexão: ${error.message || 'erro desconhecido'}`;
+        button.disabled = false;
+      }
+    }
+    window.connectGoogleCalendar = connectGoogleCalendar;
+    document.getElementById('connect-calendar').onclick = connectGoogleCalendar;
+
+    document.getElementById('calendar-form').addEventListener('submit', async event => {
+      event.preventDefault();
+      const button = document.getElementById('create-calendar-event');
+      const message = document.getElementById('calendar-message');
+      const selected = services.find(service => String(service.id) === document.getElementById('appointment-service').value);
+      if (!selected) { message.textContent = 'Selecione um serviço válido.'; return; }
+      button.disabled = true;
+      message.textContent = 'Adicionando atendimento ao Google Agenda...';
+      try {
+        const result = await callCalendarFunction('google-calendar-create-event', {
+          name: document.getElementById('appointment-name').value.trim(),
+          service: selected.nome,
+          date: document.getElementById('appointment-date').value,
+          time: document.getElementById('appointment-time').value,
+          duration: Number(selected.duracao),
+          notes: document.getElementById('appointment-notes').value.trim()
+        });
+        message.textContent = result.message || 'Atendimento adicionado ao Google Agenda.';
+        if (result.eventUrl) {
+          const link = document.createElement('a');
+          link.href = result.eventUrl;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = ' Abrir evento no Google Agenda';
+          message.appendChild(link);
+        }
+        document.getElementById('calendar-form').reset();
+        document.getElementById('appointment-duration').textContent = '';
+      } catch (error) {
+        message.textContent = `Não foi possível adicionar: ${error.message}`;
+      } finally {
+        button.disabled = false;
+      }
+    });
+
+    async function enterPanel(user) {
+      const allowed = await verifyAdmin(user);
+      if (!allowed) {
+        await db.auth.signOut();
+        showLogin('Esta conta não está autorizada a administrar o Caal Massagens.');
+        return;
+      }
+      showDashboard();
+      try { await loadServices(); } catch (error) { dashboardMessage.textContent = `Erro ao carregar serviços: ${error.message}`; }
+    }
+    document.getElementById('login-form').addEventListener('submit', async event => {
+      event.preventDefault();
+      const button = document.getElementById('login-button'); button.disabled = true; loginMessage.textContent = 'Verificando acesso...';
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const { data, error } = await db.auth.signInWithPassword({ email, password });
+      button.disabled = false;
+      if (error) { loginMessage.textContent = 'Não foi possível entrar. Confira o e-mail e a senha.'; return; }
+      try { await enterPanel(data.user); } catch (err) { await db.auth.signOut(); showLogin(`Não foi possível verificar a autorização: ${err.message}`); }
+    });
+    logoutButton.addEventListener('click', async () => { await db.auth.signOut(); showLogin('Você saiu do painel.'); });
+    document.getElementById('reload').addEventListener('click', async () => { try { await loadServices(); } catch (error) { dashboardMessage.textContent = `Erro: ${error.message}`; } });
+    document.getElementById('save').addEventListener('click', async () => {
+      const button = document.getElementById('save'); button.disabled = true; dashboardMessage.textContent = 'Salvando alterações...';
+      try {
+        const inputs = [...document.querySelectorAll('.price[data-id]')];
+        for (const input of inputs) {
+          const raw = input.value.trim();
+          const price = raw === '' ? null : Number(raw);
+          if (price !== null && (!Number.isFinite(price) || price < 0)) throw new Error('Informe preços válidos, iguais ou maiores que zero.');
+          const { error } = await db.from('servicos').update({ preco: price, atualizado_em: new Date().toISOString() }).eq('id', Number(input.dataset.id));
+          if (error) throw error;
+        }
+        dashboardMessage.textContent = 'Preços salvos! Atualize a página pública do site para conferir.';
+      } catch (error) { dashboardMessage.textContent = `Não foi possível salvar: ${error.message}`; }
+      finally { button.disabled = false; }
+    });
+    (async () => {
+      const { data: { session } } = await db.auth.getSession();
+      if (session?.user) { try { await enterPanel(session.user); } catch (error) { await db.auth.signOut(); showLogin('Não foi possível validar sua conta.'); } }
+    })();
+  </script>
+</body>
+</html>
