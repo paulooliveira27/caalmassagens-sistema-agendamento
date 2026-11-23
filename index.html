@@ -117,7 +117,7 @@
       radial-gradient(circle at 75% 20%, rgba(86,107,84,.08), transparent 55%);
     pointer-events:none;
   }
-  .hero-in{position:relative; display:grid; grid-template-columns:1.1fr .9fr; gap:80px; align-items:center}
+  .hero-in{position:relative; display:grid; grid-template-columns:minmax(0, 820px); justify-content:center; align-items:center}
   .hero h1{margin-bottom:28px}
   .hero h1 em{font-style:italic; color:var(--sage); font-weight:400}
   .hero .lead{font-size:1.06rem; color:var(--suave); max-width:48ch; margin-bottom:38px; line-height:1.7}
@@ -126,43 +126,10 @@
   .meta .num{font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:600; line-height:1; display:block; margin-bottom:6px}
   .meta .lbl{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--suave)}
 
-  .hero-img{
-    aspect-ratio:4/5; border-radius:20px; position:relative;
-    background:
-      linear-gradient(160deg, rgba(86,107,84,.92), rgba(64,82,63,.98)),
-      radial-gradient(circle at 70% 20%, rgba(179,154,95,.4), transparent 60%);
-    overflow:hidden;
-    box-shadow:var(--sombra-g);
-  }
-  .hero-img::before{
-    content:""; position:absolute; inset:22px;
-    border:1px solid rgba(255,255,255,.22); border-radius:12px;
-  }
-  .hero-img-in{
-    position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end;
-    padding:42px; color:#fff;
-  }
-  .hero-img-in .tag{
-    display:inline-block; align-self:flex-start; padding:6px 14px; border-radius:999px;
-    background:rgba(255,255,255,.15); backdrop-filter:blur(8px);
-    font-size:.7rem; letter-spacing:.15em; text-transform:uppercase; margin-bottom:20px;
-    border:1px solid rgba(255,255,255,.2);
-  }
-  .hero-img-in h3{color:#fff; font-size:1.9rem; line-height:1.15; margin-bottom:14px; font-weight:500}
-  .hero-img-in p{color:rgba(255,255,255,.8); font-size:.9rem; line-height:1.6; max-width:32ch}
-  .hero-img-in .assinatura{
-    margin-top:24px; padding-top:20px; border-top:1px solid rgba(255,255,255,.18);
-    display:flex; align-items:center; gap:12px;
-    font-size:.78rem; color:rgba(255,255,255,.75); letter-spacing:.05em;
-  }
-  .assinatura-dot{width:6px; height:6px; border-radius:50%; background:var(--ouro)}
 
   @media (max-width:960px){
-    .hero-in{grid-template-columns:1fr; gap:48px}
+    .hero-in{grid-template-columns:minmax(0, 1fr)}
     .hero{padding:64px 0 56px}
-    .hero-img{aspect-ratio:16/12; max-width:520px}
-    .hero-img-in{padding:30px}
-    .hero-img-in h3{font-size:1.5rem}
     .hero-metas{gap:24px; padding-top:24px}
     .meta .num{font-size:1.5rem}
   }
@@ -258,27 +225,14 @@
 
   /* ---------- ESPAÇO / SOBRE ---------- */
   #espaco{background:var(--creme-2)}
-  .sobre-grid{display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center}
-  .sobre-imgs{position:relative; display:grid; grid-template-columns:1fr 1fr; gap:14px}
-  .sobre-bloco{
-    border-radius:var(--raio); overflow:hidden;
-    background:linear-gradient(150deg, var(--sage), var(--sage-deep));
-    position:relative;
-  }
-  .sobre-bloco:nth-child(1){aspect-ratio:3/4; transform:translateY(28px)}
-  .sobre-bloco:nth-child(2){aspect-ratio:3/4; background:linear-gradient(150deg, var(--terra), #8B5A40)}
-  .sobre-bloco::after{
-    content:""; position:absolute; inset:0;
-    background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.15), transparent 60%);
-  }
+  .sobre-grid{display:grid; grid-template-columns:minmax(0, 820px); justify-content:center; align-items:center}
   .sobre-txt h2{margin-bottom:22px}
   .sobre-txt p{color:var(--suave); font-size:1rem; margin-bottom:20px; line-height:1.75}
   .sobre-lista{list-style:none; margin:0; padding:0; display:grid; gap:16px; margin-top:32px}
   .sobre-lista li{display:flex; gap:14px; align-items:flex-start; font-size:.92rem; color:var(--tinta-suave)}
   .sobre-lista li svg{width:18px; height:18px; color:var(--sage); flex-shrink:0; margin-top:3px}
   @media (max-width:880px){
-    .sobre-grid{grid-template-columns:1fr; gap:44px}
-    .sobre-imgs{max-width:420px; margin-inline:auto}
+    .sobre-grid{grid-template-columns:minmax(0, 1fr)}
   }
 
   /* ---------- PROFISSIONAIS ---------- */
@@ -525,17 +479,7 @@
       </div>
     </div>
 
-    <div class="hero-img">
-      <div class="hero-img-in">
-        <span class="tag">Ambiente pensado</span>
-        <h3>Um santuário no meio da rotina.</h3>
-        <p>Iluminação indireta, som ambiente e temperatura controlada em cada sala de atendimento.</p>
-        <div class="assinatura">
-          <span class="assinatura-dot"></span>
-          <span>Mercado Municipal Capão Raso · Novo Mundo, Curitiba</span>
-        </div>
-      </div>
-    </div>
+
   </div>
 </section>
 
@@ -604,10 +548,6 @@
 <!-- ESPAÇO / SOBRE -->
 <section id="espaco">
   <div class="wrap sobre-grid">
-    <div class="sobre-imgs">
-      <div class="sobre-bloco"></div>
-      <div class="sobre-bloco"></div>
-    </div>
     <div class="sobre-txt">
       <span class="eyebrow">O espaço</span>
       <h2>Um ambiente desenhado para desacelerar.</h2>
@@ -914,7 +854,7 @@
         <h4>Contato</h4>
         <ul>
           <li>Mercado Municipal Capão Raso<br>Rua Otto Cabel, 51 — em frente ao Terminal Capão Raso<br>Novo Mundo, Curitiba — PR, 81020-245</li>
-          <li><a href="#">+55 11 99999-9999</a></li>
+          <li><a href="#">+55 41 99975-7667</a></li>
         </ul>
       </div>
     </div>
